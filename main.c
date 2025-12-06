@@ -56,8 +56,16 @@ int _start()
     "mov %1, %%rdx\n"
     // Invoke call to kernel.
     "syscall\n"
-    :                                 // <-- output operands here
+    : // No output operands.          // <-- output operands here
     : "m"(hello), "b"(length)         // <-- input operands here
+    // The "m" and "b" in the line above are register constraints.
+    // They tell the compiler where the operands will be placed in
+    // the generated asm. "m" means memory, which makes sense as we
+    // are performing an lea (Load Effective Address) on the message
+    // which is in memory and will not fit in any register. "b"
+    // indicates that the length variable will be in register %ebx.
+    // a, b, c, d indicate rax, rbx, rcx, rdx respectively. "r" can
+    // be used to mean any available general register.
     : "%rax", "%rdi", "%rsi", "%rdx"  // <-- changed registers here
     // The list of registers above is called the "clobbered"
     // registers and it tells the compiler which registers have
