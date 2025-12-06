@@ -21,9 +21,9 @@
 // Based on the content of this youtube video:
 // https://www.youtube.com/watch?v=gVaXLlGqQ-c
 
-// _start is the entry point for all programs on Linux
-// Normally, libc provides _start and the compiler wraps main in it
-// No libc means we need to write _start ourselves
+// _start is the entry point for all programs on Linux.
+// Normally, libc provides _start and the compiler wraps main in it.
+// No libc means we need to write _start ourselves.
 int _start()
 {
   // Char array to print, as normal. Can have any content.
@@ -76,6 +76,8 @@ int _start()
   // The _start provided by libc that wraps main also performs the
   // exit syscall after main finishes executing, passing the return
   // value of main to the syscall as the return value of the program.
+  // Without libc, we need to perform the exit ourselves to avoid a
+  // segfault.
   asm volatile (
     // Again, rax holds the indentifier for the syscall. 60 is the
     // number which identifies the exit syscall.
